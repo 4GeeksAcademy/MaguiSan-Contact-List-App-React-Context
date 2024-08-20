@@ -5,10 +5,10 @@ import FormContact from "../component/FormContact.jsx";
 
 const AddContact = () => {
     return(
-        <div className="d-flex justify-content-center flex-column align-items-center w-100 p-5">
+        <div className="d-flex justify-content-center flex-column align-items-center w-100 px-5 pt-2">
             <FormContact/>
 			<Link to="/">
-				<button className="btn btn-link">or get back to contacts</button>
+				<button className="btn btn-link fw-semibold">or get back to contacts</button>
 			</Link>
         </div>
     );

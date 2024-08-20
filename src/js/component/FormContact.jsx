@@ -7,23 +7,23 @@ const FormContact = () => {
             <h2 className="fw-bold fs-1 mb-2 text-center">Add a new Contact</h2>
             <form className="row g-3 text-start">
                 <div className="col-md-12">
-                    <label for="fullName" className="form-label">Full name</label>
+                    <label for="fullName" className="form-label fw-semibold">Full name</label>
                     <input type="text" className="form-control" id="fullName" placeholder="Name Last name" required/>
                 </div>
                 <div class="col-md-12">
-                    <label for="emailAdd" class="form-label">Email</label>
+                    <label for="emailAdd" class="form-label fw-semibold">Email</label>
                     <input type="email" class="form-control" id="emailAdd" placeholder="name@example.com"/>
                 </div>
                 <div className="col-md-12">
-                    <label for="phoneNum" className="form-label">Phone</label>
+                    <label for="phoneNum" className="form-label fw-semibold">Phone</label>
                     <input type="text" className="form-control" id="phoneNum" placeholder="Enter phone" required/>
                 </div>
                 <div className="col-md-12">
-                    <label for="address" className="form-label">Address</label>
+                    <label for="address" className="form-label fw-semibold">Address</label>
                     <input type="text" className="form-control" id="address" placeholder="Enter address" required/>
                 </div>
                 <div className="col-md-12">
-                    <button className="btn btn-primary w-100" type="submit">Save</button>
+                    <button className="btn btn-primary w-100 fw-semibold" type="submit">Save</button>
                 </div>
             </form>
         </div>
