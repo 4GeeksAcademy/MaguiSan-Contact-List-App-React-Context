@@ -1,5 +1,10 @@
+//set Store actualiza el store ..esos 3 con funciones
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
+		//se guardan estados
+		//demo es un estado (3 vistas, demo, home y single)
+		//estudiar tipos de datos
+		//cada actualizacion del store no actualiza todo
 		store: {
 			demo: [
 				{
@@ -13,7 +18,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			]
+			//contacts []
 		},
+
+		//se guardan los metodos
 		actions: {
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
