@@ -12,12 +12,13 @@ const Contact = () => {
 
     const{store, actions} = useContext(Context)
     //accedere a la info de demo, .demo porq es un objeto
-    // console.log(store.demo); 
-    console.log(store.agendasList);
-    console.log(store.contactsList);
+    // console.log(store.demo);
+
+    // console.log(store.agendasList);
+    // console.log(store.contactsList);
     
     useEffect(()=>{
-        actions.getAgendasList()
+        // actions.getAgendasList()
         actions.getContactsList()
     },[])
     return(

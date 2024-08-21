@@ -51,28 +51,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			deleteContact: (id) => {
 				fetch(`https://playground.4geeks.com/contact/agendas/MaguiSan/contacts/${id}`,{
-					method: "DELETE"
+					method: "DELETE",
 				})
 				.then((response) => {
 					console.log(response);
+					const store = getStore();
 					let newList = store.contactsList.filter((item) => item.id !==id)
 					setStore({contactsList: newList});
 				})
 				.catch((error) => console.log(error))
 			},
 
-			// const deleteTask = (id) => {
-			// 	fetch(`https://playground.4geeks.com/todo/todos/${id}`, {
-			// 		method: "DELETE",
-			// 	})
-			// 	.then((response) => {
-			// 		console.log(response);
-			// 		let newList = task.filter((item) => item.id !==id)
-			// 		setTask(newList);
-			// 	})
-			// 	.catch((error) => console.log(error))
-			// };
-
+	
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},

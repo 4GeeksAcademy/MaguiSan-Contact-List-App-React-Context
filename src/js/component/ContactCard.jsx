@@ -45,7 +45,7 @@ const ContactCard = () => {
                                             <div className="modal-footer">
                                                 <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Oh no!</button>
                                                 {/* -----Button delete user----- */}
-                                                <button type="button" className="btn btn-secondary" onClick={()=>actions.deleteContact(item.id)}>Yes baby!</button>
+                                                <button type="button" className="btn btn-secondary" onClick={() => actions.deleteContact(item.id)}>Yes baby!</button>
                                             </div>
                                         </div>
                                     </div>
