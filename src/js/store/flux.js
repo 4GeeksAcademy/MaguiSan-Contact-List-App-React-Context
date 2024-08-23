@@ -11,7 +11,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		//getActions - obtener las acciones
 		// estos dos get hacen la vez de this...en formato funcion :O
 		
-		store: { //puedo guardar muchos estados
+		store: { 
+			//puedo guardar muchos estados
 			//estado, espacio de memoria ..como un usestate
 			agendasList: [], //lista de todas las agendas
 			contactsList: [], //lista de todos los contactos de una agenda
@@ -35,6 +36,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//creamos un metodo (porq esta funcion esta dentro de un objeto)
 			//de una funcion accede a otra
 
+
+			//falta el PUT
 			getAgendasList: () => {
 				fetch("https://playground.4geeks.com/contact/agendas")
 				.then((response) => response.json())
@@ -46,6 +49,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch("https://playground.4geeks.com/contact/agendas/MaguiSan/contacts") //${nombre de la agenda} en vez de MaguiSan
 				.then((response) => response.json())
 				.then((data) => setStore({contactsList: data.contacts}))
+				.catch((error) => console.log(error))
+			},
+
+			addContact: () => {
+				const newContact = {
+					name: "string",
+					phone: "",
+					email: "",
+					address: ""
+					// label: valueInput
+				}
+				if (valueInput !== "") {
+					e.target.addTask.value = "";
+					// alert("Tarea creada con exito")
+				}
+				fetch("https://playground.4geeks.com/contact/agendas/MaguiSan/contacts", {
+					method: "POST",
+					headers: {
+						"Content-Type": "Application/json"
+					},
+					body: JSON.stringify(newContact)
+				})
+				.then((response) => response.json())
+				.then((data) => setStore(prevContactsList => [...prevContactsList, data]))
 				.catch((error) => console.log(error))
 			},
 

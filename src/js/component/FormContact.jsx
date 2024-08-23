@@ -1,18 +1,30 @@
 //Muestra unicamente el formulario
-import React from "react";
+import React, {useContext, useEffect} from "react";
+import { Context } from "../store/appContext";
 
 const FormContact = () => {
+    const{store, actions} = useContext(Context)
+    
+    const handleSubmit = (e)=>{
+        e.preventDefault()
+
+    }
+
+
+    useEffect(()=>{
+        actions.addContact()
+    },[])
+
     return(
         <div className="p-2 w-75">
-            <h2 className="fw-bold fs-1 mb-2 text-center">Add a new Contact</h2>
-            <form className="row g-3 text-start">
+            <form className="row g-3 text-start" onSubmit={handleSubmit}>
                 <div className="col-md-12">
                     <label for="fullName" className="form-label fw-semibold">Full name</label>
-                    <input type="text" className="form-control" id="fullName" placeholder="Name Last name" required/>
+                    <input type="text" className="form-control" id="fullName" placeholder="Name Last name" onChange={(e) => store.contactList.name(e.target.value)} required/>
                 </div>
                 <div class="col-md-12">
                     <label for="emailAdd" class="form-label fw-semibold">Email</label>
-                    <input type="email" class="form-control" id="emailAdd" placeholder="name@example.com"/>
+                    <input type="email" class="form-control" id="emailAdd" placeholder="name"/>
                 </div>
                 <div className="col-md-12">
                     <label for="phoneNum" className="form-label fw-semibold">Phone</label>
@@ -23,7 +35,7 @@ const FormContact = () => {
                     <input type="text" className="form-control" id="address" placeholder="Enter address" required/>
                 </div>
                 <div className="col-md-12">
-                    <button className="btn btn-primary w-100 fw-semibold" type="submit">Save</button>
+                    <button className="btn btn-primary w-100 fw-semibold" type="submit" onClick={()=>actions.addContact()}>Save</button>
                 </div>
             </form>
         </div>
