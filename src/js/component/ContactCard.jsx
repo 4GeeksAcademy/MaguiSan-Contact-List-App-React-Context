@@ -4,9 +4,9 @@ import { Context } from "../store/appContext";
 
 const ContactCard = () => {
     const {store, actions} = useContext(Context);
-    const date = store.contactsList
-    console.log(date);
-    
+    // const date = store.contactsList
+    // console.log(date);
+
     return(
         <div>
             {
