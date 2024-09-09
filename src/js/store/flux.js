@@ -4,94 +4,98 @@
 //que propiedades tiene? store y actions (que es un objeto)
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
-		//demo es un estado (3 vistas, demo, home y single)
-		//estudiar tipos de datos
 		//cada actualizacion del store no actualiza todo
 		//getStore - obtener los estados
 		//getActions - obtener las acciones
-		// estos dos get hacen la vez de this...en formato funcion :O
-		
-		store: { 
-			//puedo guardar muchos estados
-			//estado, espacio de memoria ..como un usestate
+
+		store: {
 			agendasList: [], //lista de todas las agendas
 			contactsList: [], //lista de todos los contactos de una agenda
+			selectedContact: null
 		},
-		//objeto donde se guardan las funciones q se usaran en varios componentes
 		actions: {
-			// Use getActions to call a function within a fuction
-			//Estas funciones estan disponible para cada views () y no hacer un fetch para cada view
-			//creamos un metodo (porq esta funcion esta dentro de un objeto)
-			//de una funcion accede a otra
-
-			//falta el PUT
 			getAgendasList: () => {
 				fetch("https://playground.4geeks.com/contact/agendas")
-				.then((response) => response.json())
-				.then((data) => setStore({agendasList: data.agendas})) //para actualizar mi Store, se especifica en q espacio de memoria se quiere guardar
-				.catch((error) => console.log(error))
+					.then((response) => response.json())
+					.then((data) => setStore({ agendasList: data.agendas })) //para actualizar mi Store, se especifica en q espacio de memoria se quiere guardar
+					.catch((error) => console.log(error))
 			},
 
 			getContactsList: () => {
 				fetch("https://playground.4geeks.com/contact/agendas/MaguiSan/contacts") //${nombre de la agenda} en vez de MaguiSan
-				.then((response) => response.json())
-				.then((data) => setStore({contactsList: data.contacts}))
-				.catch((error) => console.log(error))
+					.then((response) => response.json())
+					.then((data) => setStore({ contactsList: data.contacts }))
+					.catch((error) => console.log(error))
 			},
 
-			// addContact: () => {
-			// 	const newContact = {
-			// 		name: "string",
-			// 		phone: "",
-			// 		email: "",
-			// 		address: ""
-			// 		// label: valueInput
-			// 	}
-			// 	if (valueInput !== "") {
-			// 		e.target.addTask.value = "";
-			// 		// alert("Tarea creada con exito")
-			// 	}
-			// 	fetch("https://playground.4geeks.com/contact/agendas/MaguiSan/contacts", {
-			// 		method: "POST",
-			// 		headers: {
-			// 			"Content-Type": "Application/json"
-			// 		},
-			// 		body: JSON.stringify(newContact)
-			// 	})
-			// 	.then((response) => response.json())
-			// 	.then((data) => setStore(prevContactsList => [...prevContactsList, data]))
-			// 	.catch((error) => console.log(error))
-			// },
+			addContact: (newContact) => {
+				fetch("https://playground.4geeks.com/contact/agendas/MaguiSan/contacts", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(newContact)
+				})
+					.then((response) => response.json())
+					.then((data) => {
+						console.log(data)
+						if (data) {
+							setStore({ contactsList: [...getStore().contactsList, data] })
+							alert(`Contact ${newContact.name} was successfully created.`)
+						} else {
+							alert("Something went wrong")
+						}
+					})
+					.catch((error) => console.log(error))
+			},
 
 			deleteContact: (id) => {
-				fetch(`https://playground.4geeks.com/contact/agendas/MaguiSan/contacts/${id}`,{
+				fetch(`https://playground.4geeks.com/contact/agendas/MaguiSan/contacts/${id}`, {
 					method: "DELETE",
 				})
-				.then((response) => {
-					console.log(response);
-					const store = getStore();
-					let newList = store.contactsList.filter((item) => item.id !== id)
-					setStore({contactsList: newList});
-				})
-				.catch((error) => console.log(error))
+					.then((data) => {
+						console.log(data);
+						if (data.ok) {
+							const store = getStore();
+							const newList = store.contactsList.filter((item) => item.id !== id)
+							setStore({ contactsList: newList });
+							alert("Contact successfully deleted.")
+						} else {
+							console.error("Failed to delete contact")
+							alert("Something went wrong")
+						}
+					})
+					.catch((error) => console.log(error))
 			},
 
-			// changeColor: (index, color) => {
-			// 	//get the store
-			// 	const store = getStore();
-
-			// 	//we have to loop the entire demo array to look for the respective index
-			// 	//and change its color
-			// 	const demo = store.demo.map((elm, i) => {
-			// 		if (i === index) elm.background = color;
-			// 		return elm;
-			// 	});
-
-			// 	//reset the global store
-			// 	setStore({ demo: demo });
-			// }
+			//Editar contactos
+			upDateContact: (contactData, id) => {
+				fetch(`https://playground.4geeks.com/contact/agendas/MaguiSan/contacts/${id}`, {
+					method: "PUT",
+					headers: {
+						"Content-type": "application/json"
+					},
+					body: JSON.stringify(contactData)
+				})
+					.then(response => response.json())
+					.then(data => {
+						console.log(data)
+						if (data) {
+							const store = getStore();
+							const contactEdited = store.contactsList.map((item) => item.id === id ? { ...item, ...contactData } : item);
+							setStore({ contactsList: contactEdited, selectedContact: null });
+							alert("Contact successfully updated.")
+						} else {
+							console.error("failed to update contact")
+							alert("Something went wrong")
+						}
+					})
+					.catch(error => console.log(error))
+			},
+			editContact: (contactRegister) => {
+				setStore({ selectedContact: contactRegister })
+			}
 		}
 	};
 };
-
 export default getState;
