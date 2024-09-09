@@ -68,7 +68,6 @@ const FormContact = () => {
                     <input type="text" value={data.address} name="address" className="form-control" id="address" placeholder="Enter address" onChange={handleData} required />
                 </div>
                 <div className="col-md-12">
-                    {/* onClick={()=>actions.addContact()} */}
                     <button className="btn btn-primary w-100 fw-semibold" type="submit" >Save</button>
                 </div>
             </form>

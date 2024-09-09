@@ -1,10 +1,8 @@
 //Contiene la lista de contactos
 import React, { useContext, useEffect } from "react"; //1
 import { Context } from "../store/appContext.js" //2
-
 import ContactCard from "../component/ContactCard.jsx";
 import { Link } from "react-router-dom";
-
 
 const Contact = () => {
     const { store, actions } = useContext(Context)
